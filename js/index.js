@@ -1,13 +1,18 @@
-$(document).ready(function() {
-  var url = "https://gist.githubusercontent.com/fulvi0/0ee486d83d7c533c844366a19f77dd3d/raw/e7f0e4d0bd784c5ef50c926faa568077b2a438b2/fr_quotes.json";
-
-  var extractor = function(result) {
-    $.each(result, function(key, value) {
-      $("#main_page").append(value + " ");
-    });
-  };
+$(document).ready(function(){
+  $.ajax({
+    type: "GET",
+    url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=Jimi_Hendrix&callback=?",
+    contentType: "application/json; charset=utf-8",
+    async: false,
+    dataType: "json",
+    success: function (data, textStatus, jqXHR) {
+      console.log(data);
+    },
+    error: function (errorMessage) {
+    }
+  });
 
   $("#looker").click(function() {
-    $.getJSON(url, extractor);
-  });
+    $.getJSON(mw,extractor);
+  })
 });
