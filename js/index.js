@@ -5,14 +5,13 @@ $(document).ready(function(){
     $.getJSON(
         url,
         function(result){
-          var sheets = result;
-          for (var x in sheets){
-            var html;
-            html += "<div class='col-md-8 well'>" + "<h2>" + sheets[1][0] +
-              "</h2>" + "<br>" + sheets[x][0] + "</div>"+ "<br>";
+          var html;
 
-            $("#main_page").html(html);
+          for(var x = 1; x < result.length; x++){
+            html += "<div class='col-md-8 well'>" + "<h2>" + result[x][0] +
+              "</h2>" + "<br>" + result[1][0] + "</div>"+ "<br>";
           }
+          $("#main_page").html(html);
         });
   })
 });
