@@ -1,18 +1,19 @@
 $(document).ready(function(){
-  $.ajax({
-    type: "GET",
-    url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=Jimi_Hendrix&callback=?",
-    contentType: "application/json; charset=utf-8",
-    async: false,
-    dataType: "json",
-    success: function (data, textStatus, jqXHR) {
-      console.log(data);
-    },
-    error: function (errorMessage) {
-    }
-  });
-
   $("#looker").click(function() {
-    $.getJSON(mw,extractor);
+    var searchBox = $("input").val();
+    var url = "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + searchBox + "&callback=?";
+    $.getJSON(
+        url,
+        function(result){
+          var sheets = result;
+          for (var x in sheets){
+            var html;
+            html += "<div class='col-md-8 well'>" + "<h2>" + sheets[1][0] +
+              "</h2>" + "<br>" + sheets[x][0] + "</div>"+ "<br>";
+
+            $("#main_page").html(html);
+          }
+        });
   })
 });
+
